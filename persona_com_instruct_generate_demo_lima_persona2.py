@@ -272,9 +272,12 @@ def random_sample(seed_tasks, roundi, is_vllm, batch_length, model, sampling_par
             #     dialogue += tx + '\n'
             if roundi > 0:
                 # pdb.set_trace()
-                if pre_tasks[idx]['complexity_score'] >= seed_tasks[idx]['complexity_score'] or seed_tasks[idx]['complexity_score'] >= 4.5:
+                if pre_tasks[idx]['complexity_score'] >= seed_tasks[idx]['complexity_score']:
                     flag2 = True
                     seed_tasks[idx] = pre_tasks[idx]
+                    all_logs.append(seed_tasks[idx])
+                    continue
+                if seed_tasks[idx]['complexity_score'] >= 4.5:
                     all_logs.append(seed_tasks[idx])
                     continue
                 else:

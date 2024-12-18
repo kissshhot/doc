@@ -167,12 +167,13 @@ def UCB_sample_record(seed_tasks, batch_length, roundi, is_vllm, model, sampling
     test_log = []
     question_embedding = []
     raw_logs = []
+    # question_embedding = torch.load('/home/dyf/data_generate/persona-instruct/embedding/question_embedding.pt')
     # attributions = ['subtopic', 'resource', 'scene', 'skill', 'audience', 'perspective', 'writer']
     # formats = ['Yes/No Question', 'Choice Question', 'WH Question', ]
     if is_vllm == True:
         for idx in tqdm(range(len(seed_tasks))): #len(seed_tasks)'
-            if idx <= 836:
-                continue
+            # if idx <= 836:
+            #     continue
             task = random.sample(lima_tasks, 1)
             # sl_attributions = attributions # random.sample(attributions, 5)
             doc = seed_tasks[idx]['doc']
@@ -234,6 +235,7 @@ def UCB_sample_record(seed_tasks, batch_length, roundi, is_vllm, model, sampling
                     print(question)
                     all_logs.append(t)
                     if len(all_logs) % 500 == 0:
+                        torch.save(question_embedding, f'/home/dyf/data_generate/doc-instruct/embedding/diff_{batch_length}.pt')
                         output_log_jsonl(os.path.join('/home/dyf/data_generate/doc-instruct/data/lima/epoch/diff/', f"diff_new_instruct_{batch_length}_doc_round_{roundi}_{model_id}.jsonl"), all_logs)
                 else:
                     test_ = {}
@@ -242,7 +244,8 @@ def UCB_sample_record(seed_tasks, batch_length, roundi, is_vllm, model, sampling
                     test_log.append(test_)
                     output_log_jsonl(os.path.join("/home/dyf/data_generate/doc-instruct/data/lima/wrong/", f"bool_log_round_{roundi}_{model_id}.jsonl"), test_log)
                     continue
-                if len(all_logs) >= 1000:
+                if len(all_logs) >= batch_length:
+                    torch.save(question_embedding, f'/home/dyf/data_generate/doc-instruct/embedding/diff_{batch_length}.pt')
                     output_log_jsonl(os.path.join('/home/dyf/data_generate/doc-instruct/data/lima/raw_data/', f"diff_raw_instruct_{batch_length}_doc_round_{roundi}_{model_id}.jsonl"), raw_logs)
                     output_log_jsonl(os.path.join('/home/dyf/data_generate/doc-instruct/data/lima/epoch/diff/', f"diff_new_instruct_{batch_length}_doc_round_{roundi}_{model_id}.jsonl"), all_logs)
                     sys.exit(0)
