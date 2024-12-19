@@ -37,6 +37,6 @@ def convert_jsonl_to_sharegpt(input_file, output_file):
         json.dump(sharegpt_data, f, ensure_ascii=False, indent=2)
 
 # 使用该函数
-input_file = "/home/dyf/data_generate/doc-instruct/data/lima/continue/raw_response_Mistral-7B-Instruct-v0.3_0.8.jsonl"  # 输入的 JSONL 文件
-output_file = "/home/dyf/data_generate/doc-instruct/data/lima/share_gpt/0.8_4000_Mistral-7B-Instruct-v0.3.json"  # 输出的 ShareGPT 格式 JSON 文件
+input_file = "/home/dyf/data_generate/doc-instruct/data/lima/response/com_ablation/raw_response_Llama-3.1-Tulu-3-8B_4000_com_1.jsonl"  # 输入的 JSONL 文件
+output_file = "/home/dyf/data_generate/doc-instruct/data/lima/share_gpt/raw_response_Llama-3.1-Tulu-3-8B_4000_diverse_0.8_com_1.json"  # 输出的 ShareGPT 格式 JSON 文件
 convert_jsonl_to_sharegpt(input_file, output_file)

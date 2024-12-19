@@ -14,8 +14,9 @@ for t in data:
     tmp = {}
     tmp['conversations'] = []
     tmp['conversations'].append(t['conversations'][0]['content'])
+    tmp['conversations'].append(t['conversations'][1]['content'])
     all_log.append(tmp)
-output_log_jsonl("/home/dyf/data_generate/doc-instruct/data/lima/epoch/diff/0.8_4000_Llama-3.1-Tulu-3-8B.jsonl", all_log)
+output_log_jsonl("/home/dyf/data_generate/doc-instruct/data/lima/epoch/diff/0.8_4000_Llama-3.1-Tulu-3-8B-response.jsonl", all_log)
 
 # 现在data变量包含了JSON文件中的数据
 # print(data)

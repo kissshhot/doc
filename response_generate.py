@@ -110,7 +110,7 @@ def response_generate_main(batch_dir, seed_tasks, model, sampling_params, chat_f
     for t in tqdm(copied_list):
         # instruction = t['conversations'][0]
         # prompt = persona_com_instruct_generate_rewrite.format(questioner=questioner, question=question)
-        prompt = t['conversations'][0].strip() # answer_generate.format(instruction=instruction).strip()
+        prompt = t['conversations'][0].strip("*").strip() # answer_generate.format(instruction=instruction).strip()
         # conversation = [{"role": "user", "content": inputs}]
         # tools = [get_current_weather]
 

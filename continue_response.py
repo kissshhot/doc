@@ -104,7 +104,7 @@ def use_vllm(prompts, model, sampling_params, chat_formatting_function, tokenize
 def response_generate_main(batch_dir, seed_tasks, model, sampling_params, chat_formatting_function, tokenizer, model_id, batch_length):
     model_id = model_id.split('/')[-1]
     all_logs = []
-    response_path = "/home/dyf/data_generate/doc-instruct/data/lima/response/raw_response_Llama-3.1-Tulu-3-8B_0.jsonl"
+    response_path = "/home/dyf/data_generate/doc-instruct/data/lima/epoch/diff/0.8_4000_Llama-3.1-Tulu-3-8B-response.jsonl"
     seed_tasks_2 = [json.loads(l) for l in open(response_path, "r")]
     # import copy
     # original_list = [[1, 2, 3], [4, 5, 6]]
