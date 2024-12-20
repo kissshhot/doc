@@ -274,12 +274,12 @@ def random_sample(seed_tasks, roundi, is_vllm, batch_length, model, sampling_par
                 # pdb.set_trace()
                 if pre_tasks[idx]['complexity_score'] >= seed_tasks[idx]['complexity_score']:
                     flag2 = True
-                    seed_tasks[idx] = pre_tasks[idx]
-                    all_logs.append(seed_tasks[idx])
+                    # seed_tasks[idx] = pre_tasks[idx]
+                    all_logs.append(pre_tasks[idx])
                     continue
-                if seed_tasks[idx]['complexity_score'] >= 4.5:
-                    all_logs.append(seed_tasks[idx])
-                    continue
+                # if seed_tasks[idx]['complexity_score'] >= 4.5:
+                #     all_logs.append(seed_tasks[idx])
+                #     continue
                 else:
                     flag = True
                 # try:
@@ -287,20 +287,24 @@ def random_sample(seed_tasks, roundi, is_vllm, batch_length, model, sampling_par
                 # except:
                 #     pdb.set_trace()
                 # respondent = seed_tasks[idx]['respondent']
-            question = seed_tasks[idx]['conversations'][0].strip()
+            question = seed_tasks[idx]['conversations'][0].strip("*").strip()
             # dialogue = seed_tasks[idx]['instruction'] # + '\n' + seed_tasks[idx]['instances'][0]['input'] + '\n' + seed_tasks[idx]['instances'][0]['output']
             prompt = persona_com_instruct_generate_rewrite_wo_persona.format(question=question)
             te = False
             while True:
                 result = use_vllm([prompt], model, sampling_params, chat_formatting_function, tokenizer)
                 try:
-                    if '### Reason:' in result:
-                        question = result.split('### New Question:')[1].split('### Reason:')[0].strip('"').strip()
-                    elif '\nReason:' in result:
-                        question = result.split('### New Question:')[1].split('\nReason:')[0].strip('"').strip()
-                    else:
-                        te = True
-                        break
+                    if '[New Question]:' in result:
+                        question = result.split('[New Question]:')[1].strip("*").strip()
+                    # else:
+                    #     question = result.strip("*").strip()
+                    # if '### Reason:' in result:
+                    #     question = result.split('### New Question:')[1].split('### Reason:')[0].strip('"').strip()
+                    # elif '\nReason:' in result:
+                    #     question = result.split('### New Question:')[1].split('\nReason:')[0].strip('"').strip()
+                    # else:
+                    #     te = True
+                    #     break
                     # respondent = result.split('[New Respondent]: ')[1].split('[Reason]: ')[0].strip('"')
                     break
                 except:
@@ -318,6 +322,7 @@ def random_sample(seed_tasks, roundi, is_vllm, batch_length, model, sampling_par
             if True:# quality_score_vllm(question, model, sampling_params, chat_formatting_function):
                 # documents.append(question)
                 seed_tasks[idx]['conversations'][0] = question
+                seed_tasks[idx]['result'] = result
                 all_logs.append(seed_tasks[idx])
                 print(result)
                 # t = {}

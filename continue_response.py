@@ -152,6 +152,7 @@ def response_generate_main(batch_dir, seed_tasks, model, sampling_params, chat_f
             output_log_jsonl(os.path.join(batch_dir, f"raw_response_{model_id}_{batch_length}.jsonl"), all_logs)
         if len(all_logs) >= 4000:
             break
+    output_log_jsonl(os.path.join(batch_dir, f"raw_response_{model_id}_{batch_length}.jsonl"), all_logs)
 
 # def response_generate_main(batch_dir, seed_tasks, chat_formatting_function, model, sampling_params):
 #     # args = parse_args()

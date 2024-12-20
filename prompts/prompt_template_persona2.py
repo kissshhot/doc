@@ -545,7 +545,7 @@ Here is the new question.
 Your reason for the new question.
 '''
 
-persona_com_instruct_generate_rewrite_wo_persona = '''Please generate a new, high quality, reasonable and more challenging version of the given question.
+persona_com_instruct_generate_rewrite_wo_persona_w_reason = '''Please generate a new, high quality, reasonable and more challenging version of the given question.
 ### Important:
 1. You need to explain why the new question is more challenging.
 2. Don't provide a solution or answer to the new question.
@@ -557,6 +557,14 @@ Here is the new question.
 ### Reason:
 Your reason for the new question.
 '''
+
+persona_com_instruct_generate_rewrite_wo_persona = '''Please generate a new, high quality, reasonable and more challenging version of the given question.
+### Important:
+You only need to generate the new question, do not provide a solution or answer to the new question!
+### Original Question:
+{question}
+Your output should be formatted as follows:
+[New Question]: Here is the new question.'''
 
 answer_generate = '''
 Here is an instruction that describes a task, write a response that appropriately completes the request.
